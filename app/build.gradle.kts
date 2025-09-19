@@ -1,7 +1,20 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
 }
+
+fun loadProperties(): Properties {
+    val localProperties = Properties()
+    val localPropertiesFile = rootProject.file("local.properties")
+    if (localPropertiesFile.exists()) {
+        localProperties.load(localPropertiesFile.inputStream())
+    }
+    return localProperties
+}
+
+val localProperties = loadProperties()
 
 android {
     namespace = "com.cpp.inonews"
@@ -15,23 +28,42 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "NEWS_API", "\"${localProperties.getProperty("news_api", "")}\"")
+    }
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(localProperties.getProperty("keystore.file", ""))
+            storePassword = localProperties.getProperty("keystore.password", "")
+            keyAlias = localProperties.getProperty("keystore.alias", "")
+            keyPassword = localProperties.getProperty("keystore.key_password", "")
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("release")
+            buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("base_url", "")}\"")
+        }
+        debug {
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = ".debug"
+            buildConfigField("String", "BASE_URL", "\"${localProperties.getProperty("dev_base_url", "")}\"")
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "17"
+    }
+    buildFeatures{
+        viewBinding = true
+        buildConfig = true
     }
 }
 
@@ -40,9 +72,19 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.livedata)
+    implementation(libs.bundles.datastore)
+    implementation(libs.androidx.splashscreen)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
