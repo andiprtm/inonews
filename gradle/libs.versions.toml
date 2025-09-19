@@ -10,6 +10,23 @@ material = "1.13.0"
 activity = "1.11.0"
 constraintlayout = "2.2.1"
 
+desugar_jdk_libs = "2.1.5"
+
+lifecycleLivedataKtx = "2.6.1"
+lifecycleViewmodelKtx = "2.6.1"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+
+glide = "4.16.0"
+retrofit = "2.9.0"
+okhttp = "4.11.0"
+
+splashscreen = "1.0.0"
+fragment = "1.6.2"
+viewmodel = "2.6.2"
+coroutines = "1.5.2"
+datastore = "1.0.0"
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -19,6 +36,48 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+
+desugar_jdk_libs = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar_jdk_libs" }
+
+androidx-lifecycle-livedata-ktx = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "lifecycleLivedataKtx" }
+androidx-lifecycle-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "lifecycleViewmodelKtx" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+
+squareup-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+squareup-converter-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+squareup-okhttp3 = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+
+androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activity" }
+androidx-fragment-ktx = { group = "androidx.fragment", name = "fragment-ktx", version.ref = "fragment" }
+androidx-viewmodel = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewmodel" }
+androidx-livedata = { group = "androidx.lifecycle", name = "lifecycle-livedata-ktx", version.ref = "viewmodel" }
+
+coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+androidx-datastore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
+
+androidx-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
+
+[bundles]
+retrofit = [
+    "glide",
+    "squareup-retrofit",
+    "squareup-converter-gson",
+    "squareup-okhttp3"
+]
+livedata = [
+    "androidx-viewmodel",
+    "androidx-livedata",
+    "androidx-activity-ktx",
+    "androidx-fragment-ktx"
+]
+datastore = [
+    "coroutines-android",
+    "coroutines-core",
+    "androidx-datastore"
+]
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
