@@ -69,22 +69,32 @@ android {
 
 dependencies {
 
+    // Core & UI
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.lifecycle.livedata.ktx)
-    implementation(libs.androidx.lifecycle.viewmodel.ktx)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.androidx.splashscreen)
+
+    // Architecture (MVVM essentials)
+    implementation(libs.bundles.architecture)
+
+    // Navigation
+    implementation(libs.bundles.navigation)
+
+    // Network (Retrofit + Gson + OkHttp)
+    implementation(libs.bundles.network)
+
+    // Image Loading (Glide)
+    implementation(libs.bundles.imageloading)
+
+    // Data Persistence (DataStore + Coroutines)
+    implementation(libs.bundles.persistence)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.espresso.core)
 
-    implementation(libs.bundles.retrofit)
-    implementation(libs.bundles.livedata)
-    implementation(libs.bundles.datastore)
-    implementation(libs.androidx.splashscreen)
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
