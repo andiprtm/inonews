@@ -24,7 +24,7 @@ class NewsRepository (
 ) {
 
     fun getPageNews(
-        country: String = "us",
+        country: String = "id",
         pageSize: Int = 5
     ): LiveData<Result<PagingData<ArticlesItem>>> {
         return Pager(
