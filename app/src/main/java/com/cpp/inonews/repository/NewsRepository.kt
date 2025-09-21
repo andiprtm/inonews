@@ -15,6 +15,7 @@ import com.cpp.inonews.data.remote.responses.topheadlines.TopHeadlinesResponse
 import com.cpp.inonews.utils.helper.network.safeApiCall
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import org.json.JSONObject
 import java.io.IOException
 
@@ -38,6 +39,7 @@ class NewsRepository (
             .map<PagingData<ArticlesItem>, Result<PagingData<ArticlesItem>>> { pagingData ->
                 Result.Success(pagingData)
             }
+            .onStart { emit(Result.Loading) }
             .catch { e -> emit(Result.Error(e.message ?: "Unknown error", throwable = e)) }
             .asLiveData()
     }

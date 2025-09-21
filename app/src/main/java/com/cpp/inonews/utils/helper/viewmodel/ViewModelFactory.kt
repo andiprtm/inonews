@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cpp.inonews.di.Injection
 import com.cpp.inonews.repository.NewsRepository
+import com.cpp.inonews.ui.MainViewModel
 
 class ViewModelFactory private constructor(
     private val newsRepository: NewsRepository
@@ -23,6 +24,14 @@ class ViewModelFactory private constructor(
                     INSTANCE = it
                 }
             }
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        return when (modelClass){
+            MainViewModel::class.java -> MainViewModel(newsRepository) as T
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
     }
 
