@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_regular"
                     android:textSize="14sp"
-                    tools:text="12 Agusutus 2025, 19:00WIB"/>
+                    tools:text="12 Agusutus 2025,  19:00WIB"/>
 
             </LinearLayout>
 
