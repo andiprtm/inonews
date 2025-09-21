@@ -31,6 +31,9 @@ glide = "4.16.0"
 datastore = "1.0.0"
 coroutines = "1.5.2"
 
+# Paging
+pagingRuntimeKtx = "3.1.0"
+
 [libraries]
 # Core & UI
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -62,6 +65,9 @@ glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "gl
 datastore-preferences = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutines" }
+
+# Paging
+androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }

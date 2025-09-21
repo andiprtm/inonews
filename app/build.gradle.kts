@@ -92,6 +92,9 @@ dependencies {
     // Data Persistence (DataStore + Coroutines)
     implementation(libs.bundles.persistence)
 
+    // Paging
+    implementation(libs.androidx.paging.runtime.ktx)
+
     // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
