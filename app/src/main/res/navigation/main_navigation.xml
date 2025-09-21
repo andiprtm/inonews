@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.cpp.inonews.ui.screen.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_detailFragment"
@@ -17,6 +17,15 @@
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.cpp.inonews.ui.screen.DetailFragment"
-        android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        android:label="Article Details"
+        tools:layout="@layout/fragment_detail">
+        <action
+            android:id="@+id/action_detailFragment_to_fullArticleFragment"
+            app:destination="@id/fullArticleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fullArticleFragment"
+        android:name="com.cpp.inonews.ui.screen.FullArticleFragment"
+        android:label="Full Article"
+        tools:layout="@layout/fragment_full_article" />
 </navigation>

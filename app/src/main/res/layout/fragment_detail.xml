@@ -54,10 +54,12 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="260dp"
                 android:layout_marginBottom="25dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/article_image"
                 tools:src="@tools:sample/avatars"/>
 
             <TextView
@@ -66,7 +68,18 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
+                android:layout_marginBottom="20dp"
                 tools:text="@tools:sample/lorem/random"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_read_full_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/read_full_article"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:padding="12dp"
+                android:layout_marginBottom="20dp"
+                app:cornerRadius="8dp" />
 
         </LinearLayout>
 

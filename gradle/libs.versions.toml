@@ -34,6 +34,8 @@ coroutines = "1.5.2"
 # Paging
 pagingRuntimeKtx = "3.1.0"
 
+parcelize = "1.9.23"
+
 [libraries]
 # Core & UI
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -111,3 +113,4 @@ persistence = [
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }

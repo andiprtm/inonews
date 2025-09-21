@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpp.inonews.R
@@ -82,8 +83,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun showSelectedStory(item: ArticlesItem) {
-        Toast.makeText(requireContext(), "Article ${item.title}", Toast.LENGTH_LONG).show()
-        // TODO: arahkan ke DetailFragment pakai Navigation
+        val bundle = Bundle().apply {
+            putParcelable("article", item)
+        }
+        findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
     }
 
     private fun observeAdapterState() {

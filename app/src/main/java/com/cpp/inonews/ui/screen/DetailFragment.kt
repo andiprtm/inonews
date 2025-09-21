@@ -5,56 +5,103 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.cpp.inonews.R
+import com.cpp.inonews.databinding.FragmentDetailBinding
+import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
+import java.text.SimpleDateFormat
+import java.util.Locale
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var _binding: FragmentDetailBinding? = null
+    private val binding get() = _binding!!
+
+    private lateinit var article: ArticlesItem
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+    ): View {
+        _binding = FragmentDetailBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        getArticleFromBundle()
+        populateArticleData()
+        setupReadFullArticleButton()
+    }
+
+    private fun getArticleFromBundle() {
+        arguments?.let { bundle ->
+            article = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+                bundle.getParcelable("article", ArticlesItem::class.java) ?: ArticlesItem()
+            } else {
+                @Suppress("DEPRECATION")
+                bundle.getParcelable("article") ?: ArticlesItem()
             }
+        }
+    }
+
+    private fun setupReadFullArticleButton() {
+        binding.btnReadFullArticle.setOnClickListener {
+            navigateToWebView()
+        }
+    }
+
+    private fun navigateToWebView() {
+        article.url?.let { url ->
+            if (url.isNotEmpty()) {
+                val bundle = Bundle().apply {
+                    putString("article_url", url)
+                }
+                findNavController().navigate(R.id.action_detailFragment_to_fullArticleFragment, bundle)
+            }
+        }
+    }
+
+    private fun populateArticleData() {
+        with(binding) {
+            title.text = article.title
+            author.text = article.author ?: "Unknown Author"
+
+            // Format and display the published date
+            val publishedDate = formatPublishedDate(article.publishedAt)
+            publish.text = publishedDate
+
+            // Display the article description
+            desc.text = article.description ?: article.content ?: "No description available"
+
+            // Load image with Glide
+            article.urlToImage?.let { imageUrl ->
+                Glide.with(this@DetailFragment)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.ic_image_placeholder)
+                    .error(R.drawable.ic_broken_image)
+                    .into(image)
+            }
+        }
+    }
+
+    private fun formatPublishedDate(dateString: String?): String {
+        if (dateString.isNullOrEmpty()) return "Unknown Date"
+
+        try {
+            val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.getDefault())
+            val outputFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
+            val date = inputFormat.parse(dateString)
+            return date?.let { outputFormat.format(it) } ?: "Unknown Date"
+        } catch (e: Exception) {
+            return dateString
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
