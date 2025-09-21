@@ -25,11 +25,12 @@ class NewsRepository (
 
     fun getPageNews(
         country: String = "us",
-        pageSize: Int = 20
+        pageSize: Int = 5
     ): LiveData<Result<PagingData<ArticlesItem>>> {
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
+                initialLoadSize = pageSize,
                 enablePlaceholders = false
             ),
             pagingSourceFactory = {

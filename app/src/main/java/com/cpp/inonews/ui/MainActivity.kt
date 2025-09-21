@@ -13,6 +13,7 @@ import com.cpp.inonews.ui.MainViewModel
 import com.cpp.inonews.ui.adapter.NewsAdapter
 import com.cpp.inonews.utils.helper.viewmodel.ObtainViewModelFactory
 import com.cpp.inonews.data.remote.Result
+import com.cpp.inonews.ui.adapter.LoadingStateAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -63,7 +64,11 @@ class MainActivity : AppCompatActivity() {
     private fun setUpRecycleView() {
         binding.rvMain.apply {
             layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = newsAdapter
+            adapter = newsAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter{
+                    newsAdapter.retry()
+                }
+            )
         }
     }
 
