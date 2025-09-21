@@ -7,6 +7,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
 import com.cpp.inonews.databinding.ItemNewsBinding
 
@@ -20,6 +21,7 @@ class NewsAdapter(private val onItemCLickCallback: (ArticlesItem) -> Unit):
             with(binding) {
                 Glide.with(root.context)
                     .load(article.urlToImage)
+                    .transform(RoundedCorners(32))
                     .into(pic)
                 title.text = article.title
                 desc.text = article.description

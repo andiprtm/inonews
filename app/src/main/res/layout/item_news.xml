@@ -6,14 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingBottom="24dp">
+    android:paddingBottom="3dp">
 
     <ImageView
         android:id="@+id/pic"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="138dp"
+        android:layout_height="110dp"
         android:scaleType="centerCrop"
         android:background="#D3D3D3"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -22,9 +25,11 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingEnd="12dp"
         app:layout_constraintStart_toEndOf="@id/pic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
             android:id="@+id/title"
@@ -47,7 +52,7 @@
             android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:fontFamily="@font/poppins_regular"
-            android:maxLines="5"
+            android:maxLines="3"
             android:textColor="@color/black"
             android:textSize="14sp"
             tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." />
