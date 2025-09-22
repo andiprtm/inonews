@@ -19,6 +19,7 @@ import com.cpp.inonews.utils.helper.viewmodel.ObtainViewModelFactory
 import com.cpp.inonews.data.remote.Result
 import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
 import com.cpp.inonews.ui.adapter.LoadingStateAdapter
+import com.cpp.inonews.utils.helper.asResult
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -50,20 +51,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun getNews() {
-        viewModel.getAllNews().observe(viewLifecycleOwner) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    binding.mainProgressBar.visibility = View.VISIBLE
-                }
-                is Result.Success -> {
-                    binding.mainProgressBar.visibility = View.GONE
-                    newsAdapter.submitData(lifecycle, result.data)
-                }
-                is Result.Error -> {
-                    binding.mainProgressBar.visibility = View.GONE
-                    Toast.makeText(requireContext(), "Error: ${result.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
+        viewModel.getAllNews().observe(viewLifecycleOwner) { data ->
+            newsAdapter.submitData(lifecycle, data)
         }
     }
 
@@ -92,21 +81,22 @@ class HomeFragment : Fragment() {
     private fun observeAdapterState() {
         viewLifecycleOwner.lifecycleScope.launch {
             newsAdapter.loadStateFlow.collectLatest { loadState ->
-                // Loading
-                binding.mainProgressBar.visibility =
-                    if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+                when (val result = loadState.refresh.asResult()) {
+                    is Result.Loading -> {
+                        binding.mainProgressBar.visibility = View.VISIBLE
+                    }
+                    is Result.Success -> {
+                        binding.mainProgressBar.visibility = View.GONE
 
-                // Empty state
-                val isListEmpty = loadState.refresh is LoadState.NotLoading && newsAdapter.itemCount == 0
-                binding.tvEmptyState.visibility = if (isListEmpty) View.VISIBLE else View.GONE
-                binding.rvMain.visibility = if (isListEmpty) View.GONE else View.VISIBLE
-
-                // Error
-                val errorState = loadState.source.refresh as? LoadState.Error
-                    ?: loadState.append as? LoadState.Error
-                    ?: loadState.prepend as? LoadState.Error
-                errorState?.let {
-                    Toast.makeText(requireContext(), "Error: ${it.error.message}", Toast.LENGTH_SHORT).show()
+                        // cek kalau list kosong
+                        val isListEmpty = newsAdapter.itemCount == 0
+                        binding.tvEmptyState.visibility = if (isListEmpty) View.VISIBLE else View.GONE
+                        binding.rvMain.visibility = if (isListEmpty) View.GONE else View.VISIBLE
+                    }
+                    is Result.Error -> {
+                        binding.mainProgressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), result.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

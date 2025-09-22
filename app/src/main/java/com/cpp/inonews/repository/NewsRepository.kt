@@ -25,7 +25,7 @@ class NewsRepository (
     fun getPageNews(
         country: String = "us",
         pageSize: Int = 5
-    ): LiveData<Result<PagingData<ArticlesItem>>> {
+    ): LiveData<PagingData<ArticlesItem>> {
         return Pager(
             config = PagingConfig(
                 pageSize = pageSize,
@@ -36,11 +36,6 @@ class NewsRepository (
                 NewsPagingSource(apiService, country)
             }
         ).flow
-            .map<PagingData<ArticlesItem>, Result<PagingData<ArticlesItem>>> { pagingData ->
-                Result.Success(pagingData)
-            }
-            .onStart { emit(Result.Loading) }
-            .catch { e -> emit(Result.Error(e.message ?: "Unknown error", throwable = e)) }
             .asLiveData()
     }
 
