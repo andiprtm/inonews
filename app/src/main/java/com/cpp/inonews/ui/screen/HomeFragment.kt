@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpp.inonews.R
+import com.cpp.inonews.data.local.entity.ArticleEntity
 import com.cpp.inonews.databinding.FragmentHomeBinding
 import com.cpp.inonews.ui.MainViewModel
 import com.cpp.inonews.ui.adapter.NewsAdapter
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         setUpRecyclerView()
         setUpViewModel()
         getNews()
-        observeAdapterState()
+//        observeAdapterState()
     }
 
     private fun getNews() {
@@ -82,35 +83,35 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showSelectedStory(item: ArticlesItem) {
+    private fun showSelectedStory(item: ArticleEntity) {
         val bundle = Bundle().apply {
             putParcelable("article", item)
         }
         findNavController().navigate(R.id.action_homeFragment_to_detailFragment, bundle)
     }
 
-    private fun observeAdapterState() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            newsAdapter.loadStateFlow.collectLatest { loadState ->
-                // Loading
-                binding.mainProgressBar.visibility =
-                    if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
-
-                // Empty state
-                val isListEmpty = loadState.refresh is LoadState.NotLoading && newsAdapter.itemCount == 0
-                binding.tvEmptyState.visibility = if (isListEmpty) View.VISIBLE else View.GONE
-                binding.rvMain.visibility = if (isListEmpty) View.GONE else View.VISIBLE
-
-                // Error
-                val errorState = loadState.source.refresh as? LoadState.Error
-                    ?: loadState.append as? LoadState.Error
-                    ?: loadState.prepend as? LoadState.Error
-                errorState?.let {
-                    Toast.makeText(requireContext(), "Error: ${it.error.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-    }
+//    private fun observeAdapterState() {
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            newsAdapter.loadStateFlow.collectLatest { loadState ->
+//                // Loading
+//                binding.mainProgressBar.visibility =
+//                    if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
+//
+//                // Empty state
+//                val isListEmpty = loadState.refresh is LoadState.NotLoading && newsAdapter.itemCount == 0
+//                binding.tvEmptyState.visibility = if (isListEmpty) View.VISIBLE else View.GONE
+//                binding.rvMain.visibility = if (isListEmpty) View.GONE else View.VISIBLE
+//
+//                // Error
+//                val errorState = loadState.source.refresh as? LoadState.Error
+//                    ?: loadState.append as? LoadState.Error
+//                    ?: loadState.prepend as? LoadState.Error
+//                errorState?.let {
+//                    Toast.makeText(requireContext(), "Error: ${it.error.message}", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        }
+//    }
 
 
     override fun onDestroyView() {
