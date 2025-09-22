@@ -59,7 +59,7 @@ Inonews is a modern Android news reader built with **Kotlin**, **MVVM**, and **J
 
 ## ⚡ Getting Started
 ### Prerequisites
-- Android Studio **Koala Feature Drop (2024.1.2+)**.  
+- **Android Studio**: Narwhal Feature Drop | 2025.1.2 Patch  
 - JDK 17.  
 - [NewsAPI.org](https://newsapi.org) API key.  
 
