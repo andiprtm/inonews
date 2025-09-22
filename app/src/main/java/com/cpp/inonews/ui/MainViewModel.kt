@@ -9,7 +9,7 @@ import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
 import com.cpp.inonews.repository.NewsRepository
 
 class MainViewModel(private val newsRepository: NewsRepository): ViewModel() {
-    fun getAllNews(): LiveData<Result<PagingData<ArticleEntity>>> {
+    fun getAllNews(): LiveData<PagingData<ArticleEntity>> {
         return newsRepository.getPageNews()
     }
 }

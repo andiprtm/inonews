@@ -28,7 +28,7 @@ class NewsRepository (
 ) {
 
     @OptIn(ExperimentalPagingApi::class)
-    fun getPageNews(): LiveData<Result<PagingData<ArticleEntity>>> {
+    fun getPageNews(): LiveData<PagingData<ArticleEntity>> {
         return Pager(
             config = PagingConfig(
                 pageSize = 5
@@ -38,11 +38,6 @@ class NewsRepository (
                 appDatabase.articleDao().pagingSource()
             }
         ).flow
-            .map<PagingData<ArticleEntity>, Result<PagingData<ArticleEntity>>> { pagingData ->
-                Result.Success(pagingData)
-            }
-            .onStart { emit(Result.Loading) }
-            .catch { e -> emit(Result.Error(e.message ?: "Unknown error", throwable = e)) }
             .asLiveData()
     }
 
