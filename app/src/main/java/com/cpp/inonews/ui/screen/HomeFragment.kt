@@ -92,22 +92,21 @@ class HomeFragment : Fragment() {
     private fun observeAdapterState() {
         viewLifecycleOwner.lifecycleScope.launch {
             newsAdapter.loadStateFlow.collectLatest { loadState ->
-                if (loadState.refresh is LoadState.NotLoading) {
-                    val total = newsAdapter.itemCount
+                // Loading
+                binding.mainProgressBar.visibility =
+                    if (loadState.refresh is LoadState.Loading) View.VISIBLE else View.GONE
 
-                    if (total == 0) {
-                        binding.tvEmptyState.visibility = View.VISIBLE
-                        binding.rvMain.visibility = View.GONE
-                    } else {
-                        binding.tvEmptyState.visibility = View.GONE
-                        binding.rvMain.visibility = View.VISIBLE
-                    }
-                }
+                // Empty state
+                val isListEmpty = loadState.refresh is LoadState.NotLoading && newsAdapter.itemCount == 0
+                binding.tvEmptyState.visibility = if (isListEmpty) View.VISIBLE else View.GONE
+                binding.rvMain.visibility = if (isListEmpty) View.GONE else View.VISIBLE
 
-                if (loadState.refresh is LoadState.Loading) {
-                    binding.mainProgressBar.visibility = View.VISIBLE
-                } else {
-                    binding.mainProgressBar.visibility = View.GONE
+                // Error
+                val errorState = loadState.source.refresh as? LoadState.Error
+                    ?: loadState.append as? LoadState.Error
+                    ?: loadState.prepend as? LoadState.Error
+                errorState?.let {
+                    Toast.makeText(requireContext(), "Error: ${it.error.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }

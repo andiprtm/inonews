@@ -12,7 +12,6 @@ import com.cpp.inonews.data.remote.Result
 import com.cpp.inonews.data.remote.paging.NewsPagingSource
 import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
 import com.cpp.inonews.data.remote.responses.topheadlines.TopHeadlinesResponse
-import com.cpp.inonews.utils.helper.network.safeApiCall
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart

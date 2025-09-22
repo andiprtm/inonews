@@ -30,9 +30,12 @@ class NewsPagingSource(private val apiService: ApiService, private val country: 
                 nextKey = if (responseData.articles.isEmpty()) null else position + 1
             )
         } catch (e: HttpException) {
-            LoadResult.Error(e)
+            val errorMessage = e.response()?.errorBody()?.string() ?: e.message()
+            LoadResult.Error(Exception("HTTP ${e.code()}: $errorMessage"))
         } catch (e: IOException) {
-            LoadResult.Error(e)
+            LoadResult.Error(Exception("Network error, check your connection"))
+        } catch (e: Exception) {
+            LoadResult.Error(Exception("Unexpected error: ${e.localizedMessage}"))
         }
     }
 
