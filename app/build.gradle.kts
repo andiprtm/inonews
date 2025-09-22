@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.parcelize)
+    alias(libs.plugins.ksp)
 }
 
 fun loadProperties(): Properties {
@@ -94,7 +95,11 @@ dependencies {
     implementation(libs.bundles.persistence)
 
     // Paging
-    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.bundles.paging)
+
+    // Room
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.bundles.room)
 
     // Testing
     testImplementation(libs.junit)
