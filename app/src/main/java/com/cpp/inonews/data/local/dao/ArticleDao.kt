@@ -18,4 +18,20 @@ interface ArticleDao {
 
     @Query("DELETE FROM articles")
     suspend fun clearAll()
+
+    @Query("SELECT COUNT(*) FROM articles")
+    suspend fun getCount(): Int
+
+    @Query("""
+        SELECT url, COUNT(url) as total
+        FROM articles
+        GROUP BY url
+        HAVING COUNT(url) > 1
+    """)
+    suspend fun getDuplicates(): List<DuplicateCheck>
 }
+
+data class DuplicateCheck(
+    val url: String,
+    val total: Int
+)
