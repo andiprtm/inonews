@@ -90,6 +90,8 @@ Inonews is a modern Android news reader built with **Kotlin**, **MVVM**, and **J
    dev_base_url=https://newsapi.org/v2/
    base_url=https://newsapi.org/v2/
    ```
+   > The dev_base_url was added to simulate a real-world Android development workflow where different endpoints are used for development (staging server) and release (production server).
+This separation makes it easier to test new features without affecting live production data
 3. (Optional) Add signing configs for release build:
 
    ```properties
