@@ -142,7 +142,7 @@ Inonews is a modern Android news reader built with **Kotlin**, **MVVM**, and **J
 
 ## 🧩 Challenges & Solutions
 
-* **Paging edge cases**: NewsAPI sometimes returns inconsistent data. → Solved with `RemoteMediator` to sync local + remote cleanly.
+* **Offline First**: Solved with `RemoteMediator` to sync local + remote cleanly.
 * **Duplicate & missing items**: Fixed with Room primary key (`url`) + `OnConflictStrategy.REPLACE`.
 * **Load state vs Result**: Separated concerns → `Result` for single calls, `LoadStateFlow` for paging.
 * **Activity → Fragment migration**: Ensured `viewLifecycleOwner` for LiveData observers to avoid leaks.
