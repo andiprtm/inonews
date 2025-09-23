@@ -5,21 +5,19 @@ Inonews is a modern Android news reader built with **Kotlin**, **MVVM**, and **J
 ---
 
 ## 📑 Table of Contents
-
-* [Overview](#overview)
-* [Features](#features)
-* [Tech Stack & Architecture](#tech-stack--architecture)
-* [Screens](#screens)
-* [Getting Started](#getting-started)
-
-  * [Prerequisites](#prerequisites)
-  * [Setup](#setup)
-  * [Run the App](#run-the-app)
-* [Build Variants](#build-variants)
-* [Highlights (What I’m Proud Of)](#highlights-what-im-proud-of)
-* [What I’d Improve Next](#what-id-improve-next)
-* [Challenges & Solutions](#challenges--solutions)
-* [Project Structure](#project-structure)
+- [Overview](#overview)  
+- [Features](#features)  
+- [Tech Stack & Architecture](#tech-stack--architecture)  
+- [Screens](#screens)  
+- [Getting Started](#getting-started)  
+  - [Prerequisites](#prerequisites)  
+  - [Setup](#setup)  
+  - [Run the App](#run-the-app)  
+- [Build Variants](#build-variants)  
+- [Highlights (What I’m Proud Of)](#highlights-what-im-proud-of)  
+- [What I’d Improve Next](#what-id-improve-next)  
+- [Challenges & Solutions](#challenges--solutions)  
+- [Project Structure](#project-structure)  
 
 ---
 
