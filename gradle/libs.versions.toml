@@ -34,6 +34,9 @@ coroutines = "1.5.2"
 # Paging
 pagingRuntimeKtx = "3.1.0"
 
+# Room
+room = "2.6.1"
+
 parcelize = "1.9.23"
 
 [libraries]
@@ -70,6 +73,12 @@ coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutin
 
 # Paging
 androidx-paging-runtime-ktx = { module = "androidx.paging:paging-runtime-ktx", version.ref = "pagingRuntimeKtx" }
+
+# Room
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
 
 # Testing
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -110,7 +119,20 @@ persistence = [
     "coroutines-android"
 ]
 
+# Paging
+paging = [
+    "androidx-paging-runtime-ktx"
+]
+
+# Room
+room = [
+    "androidx-room-paging",
+    "androidx-room-ktx",
+    "androidx-room-runtime"
+]
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "parcelize" }
+ksp = { id = "com.google.devtools.ksp", version = "2.0.21-1.0.25" }

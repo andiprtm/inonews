@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cpp.inonews.R
+import com.cpp.inonews.data.local.entity.ArticleEntity
 import com.cpp.inonews.databinding.FragmentHomeBinding
 import com.cpp.inonews.ui.MainViewModel
 import com.cpp.inonews.ui.adapter.NewsAdapter
@@ -47,7 +48,7 @@ class HomeFragment : Fragment() {
         setUpRecyclerView()
         setUpViewModel()
         getNews()
-        observeAdapterState()
+//        observeAdapterState()
     }
 
     private fun getNews() {
@@ -71,7 +72,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun showSelectedStory(item: ArticlesItem) {
+    private fun showSelectedStory(item: ArticleEntity) {
         val bundle = Bundle().apply {
             putParcelable("article", item)
         }

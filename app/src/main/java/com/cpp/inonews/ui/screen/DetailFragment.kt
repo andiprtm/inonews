@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.cpp.inonews.R
+import com.cpp.inonews.data.local.entity.ArticleEntity
 import com.cpp.inonews.databinding.FragmentDetailBinding
 import com.cpp.inonews.data.remote.responses.topheadlines.ArticlesItem
 import java.text.SimpleDateFormat
@@ -18,7 +19,7 @@ class DetailFragment : Fragment() {
     private var _binding: FragmentDetailBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var article: ArticlesItem
+    private lateinit var article: ArticleEntity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,10 +40,10 @@ class DetailFragment : Fragment() {
     private fun getArticleFromBundle() {
         arguments?.let { bundle ->
             article = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-                bundle.getParcelable("article", ArticlesItem::class.java) ?: ArticlesItem()
+                bundle.getParcelable("article", ArticleEntity::class.java) ?: ArticleEntity()
             } else {
                 @Suppress("DEPRECATION")
-                bundle.getParcelable("article") ?: ArticlesItem()
+                bundle.getParcelable("article") ?: ArticleEntity()
             }
         }
     }
